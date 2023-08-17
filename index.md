@@ -1,5 +1,5 @@
-Here you can say lots of fun things about your site.
+My name is Xiao Tang, you can call me Shawn as well.
 
-Maybe say a some things about yourself.
+I'm an independent AI researcher, I'm also interested in robot and chips.
 
-Or maybe what you plan to blog about.
+🚀
