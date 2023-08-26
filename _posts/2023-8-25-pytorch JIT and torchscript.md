@@ -30,6 +30,8 @@ Script mode is invoked by either torch.jit.trace or torch.jit.script.
 ### JIT Trace
 torch.jit.trace take a data instance and your trained eager module as input. The tracer runs the supplied module and records the tensor operations performed. This recording is turned into a TorchScript module.
 
+jit.trace way doesn't support any control flow like if else and loop. If there is any control flow in the module, the jit.trace way will ignore the control flow and treat the vlaue as constant.
+
 ### JIT Script
 torch.jit.script allows you to write your code directly into TorchScript. It's more verbose but it more versatile and with a little tweaking can support the majority of the PyTorch models.
 
