@@ -66,6 +66,9 @@ if __name__ == "__main__":
     print(traced_cell)
     print(traced_cell(x, h))
 ```
+In this example, we invoke torch.jit.trace method and pass the module my_cell and the input. 
+
+What exactly has this done? It has invoked the Module, recorded the operations that occurred when the Module was run, and created an instance of torch.jit.ScriptModule (of which TracedModule is an instance)
 
 ### JIT Script
 torch.jit.script allows you to write your code directly into TorchScript. It's more verbose but it more versatile and with a little tweaking can support the majority of the PyTorch models.
