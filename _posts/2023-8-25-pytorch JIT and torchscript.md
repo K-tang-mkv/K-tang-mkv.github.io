@@ -32,6 +32,41 @@ torch.jit.trace take a data instance and your trained eager module as input. The
 
 jit.trace way doesn't support any control flow like if else and loop. If there is any control flow in the module, the jit.trace way will ignore the control flow and treat the vlaue as constant.
 
+e.g.
+```
+import torch
+print(torch.__version__)
+torch.manual_seed(191009)
+
+
+class MyDecisionGate(torch.nn.Module):
+    def forward(self, x):
+        if x.sum() > 0:
+            return x
+        else:
+            return -x
+
+
+class MyCell(torch.nn.Module):
+    def __init__(self):
+        super(MyCell, self).__init__()
+        self.dg = MyDecisionGate()
+        self.linear = torch.nn.Linear(4, 4)
+
+    def forward(self, x, h):
+        new_h = torch.tanh(self.linear(x) + h)
+        return new_h
+
+
+if __name__ == "__main__":
+    my_cell = MyCell()
+    x = torch.rand(3, 4)
+    h = torch.rand(3, 4)
+    traced_cell = torch.jit.trace(my_cell, (x, h))
+    print(traced_cell)
+    print(traced_cell(x, h))
+```
+
 ### JIT Script
 torch.jit.script allows you to write your code directly into TorchScript. It's more verbose but it more versatile and with a little tweaking can support the majority of the PyTorch models.
 
